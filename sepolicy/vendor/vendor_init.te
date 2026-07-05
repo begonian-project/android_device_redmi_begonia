@@ -1,5 +1,14 @@
-get_prop(vendor_init, persist_atm_prop)
-get_prop(vendor_init, persist_recovery_update_prop)
+typeattribute vendor_init data_between_core_and_vendor_violators;
+
 get_prop(vendor_init, vts_status_prop)
 
-allow vendor_init { fingerprint_data_file vendor_fingerprint_data_file }:dir { rw_dir_perms relabelto setattr };
+allow vendor_init fingerprint_data_file:dir { rw_dir_perms relabelto setattr };
+allow vendor_init vendor_fingerprint_data_file:dir { rw_dir_perms relabelto setattr };
+allow vendor_init nfc_data_vendor_file:dir { r_dir_perms create_dir_perms };
+allow vendor_init proc_sched_stune:file w_file_perms;
+allow vendor_init proc_vm_dirty:file w_file_perms;
+allow init per_boot_file:file ioctl;
+allowxperm init per_boot_file:file ioctl { F2FS_IOC_SET_PIN_FILE };
+# Allow vendor_init to read the system SELinux file contexts
+allow vendor_init system_file:file { read open getattr };
+

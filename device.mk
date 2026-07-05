@@ -10,6 +10,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk)
 # Enable updating of APEXes
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
+# Project ID Quota
+$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
+
 # Setup dalvik vm configs
 $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 
@@ -115,10 +118,14 @@ PRODUCT_PACKAGES += \
 
 # GNSS
 PRODUCT_PACKAGES += \
+    android.hardware.gnss@1.0.vendor \
+    android.hardware.gnss@1.1.vendor \
+    android.hardware.gnss@2.0.vendor \
     android.hardware.gnss@2.1.vendor \
+    android.hardware.gnss.measurement_corrections@1.0.vendor \
     android.hardware.gnss.measurement_corrections@1.1.vendor \
     android.hardware.gnss.visibility_control@1.0.vendor
-
+    
 # DT2W
 PRODUCT_PACKAGES += \
     DT2W-Service-Begonia
@@ -126,7 +133,11 @@ PRODUCT_PACKAGES += \
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl \
+    android.hardware.health@2.1-impl.recovery \
     android.hardware.health@2.1-service
+
+PRODUCT_PACKAGES += \
+    android.hardware.health@2.0
 
 # Input
 PRODUCT_COPY_FILES += \
@@ -156,10 +167,6 @@ PRODUCT_PACKAGES += \
 # Lights
 PRODUCT_PACKAGES += \
     android.hardware.light-V1-ndk.vendor
-
-# Lineage Health
-PRODUCT_PACKAGES += \
-    vendor.lineage.health-service.default
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -251,19 +258,26 @@ PRODUCT_COPY_FILES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power-service.mediatek-libperfmgr \
-    android.hardware.power@1.0.vendor \
-    android.hardware.power@1.1.vendor \
-    android.hardware.power@1.3.vendor \
-    vendor.mediatek.hardware.mtkpower@1.0.vendor \
-    vendor.mediatek.hardware.mtkpower@1.1.vendor \
-    vendor.mediatek.hardware.mtkpower@1.2-service.stub \
+    android.hardware.power-service.mediatek-libperfmgr
+
+PRODUCT_PACKAGES += \
     libmtkperf_client_vendor \
     libmtkperf_client
 
+PRODUCT_PACKAGES += \
+    vendor.mediatek.hardware.mtkpower@1.0.vendor \
+    vendor.mediatek.hardware.mtkpower@1.1.vendor \
+    vendor.mediatek.hardware.mtkpower@1.2-service.stub
+
+PRODUCT_PACKAGES += \
+    android.hardware.power@1.0.vendor \
+    android.hardware.power@1.1.vendor \
+    android.hardware.power@1.2.vendor \
+    android.hardware.power@1.3.vendor
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
-
+    
 # MTK In-Call volumes adjusting service
 PRODUCT_PACKAGES += \
     MtkInCallService
@@ -300,8 +314,10 @@ PRODUCT_COPY_FILES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
+    android.hardware.sensors@1.0.vendor \
     android.hardware.sensors@2.0.vendor \
-    android.frameworks.sensorservice@1.0
+    android.frameworks.sensorservice@1.0 \
+    android.frameworks.sensorservice@1.0.vendor
 
 PRODUCT_PACKAGES += \
     libsensorndkbridge
@@ -324,6 +340,7 @@ PRODUCT_PACKAGES += \
 # Trust
 PRODUCT_PACKAGES += \
     vendor.lineage.trust@1.0-service
+    
 # USB
 PRODUCT_PACKAGES += \
     android.hardware.usb.gadget@1.0.vendor \
@@ -394,7 +411,12 @@ PRODUCT_PACKAGES += \
     libhidltransport \
     libhidltransport.vendor \
     libhidlbase \
+    libunwindstack \
     libunwindstack.vendor
+
+PRODUCT_PACKAGES += \
+    libdng_sdk.vendor \
+    android.hardware.vibrator-V2-ndk \
 
 # MTK Jars (for IMS)
 include vendor/redmi/begonia-ims/begonia-ims-vendor.mk
