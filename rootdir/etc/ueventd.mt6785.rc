@@ -145,3 +145,6 @@
 
 # MTK TEE
 /dev/ttyACM0              0660   radio      radio
+
+# KVM
+/dev/kvm                  0666   system     system

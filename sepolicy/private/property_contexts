@@ -18,3 +18,17 @@ ro.miui.                u:object_r:exported_system_prop:s0
 
 # SettingsLib
 settingsdebug.instant.packages u:object_r:settingslib_prop:s0
+
+# Audio
+audio.adm.buffering.ms                                  u:object_r:system_audio_prop:s0
+audio_hal.period_multiplier                             u:object_r:system_audio_prop:s0
+
+# Camera
+demo.hole                                               u:object_r:exported_system_prop:s0
+demo.near                                               u:object_r:exported_system_prop:s0
+demo.far                                                u:object_r:exported_system_prop:s0
+demo.fb                                                 u:object_r:exported_system_prop:s0
+camera.sensor.                                          u:object_r:system_camera_prop:s0
+
+# Fingerprint
+gf.debug.dump_data                                      u:object_r:system_fingerprint_prop:s0
